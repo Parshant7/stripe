@@ -19,6 +19,7 @@ import { UpdateSubscriptionDto } from './dto/updateSubscription.dto';
 import { CancelSubscriptionDto } from './dto/cancelSubscription.dto';
 import { ResumeSubscriptionDto } from './dto/resumeSubscription.dto';
 import { CreatePayoutDto } from './dto/createPayout.dto';
+import { CreateTransferDto } from './dto/createTransfer.dto';
 
 @Controller('stripe')
 export class StripeController {
@@ -148,4 +149,10 @@ export class StripeController {
     async createPayout(@Body() body: CreatePayoutDto){
         return this.stripeService.createPayout(body);
     }
+
+    @Post("/create-transfer")
+    async createTransfer(@Body() body: CreateTransferDto){
+        return this.stripeService.createTransfer(body);
+    }
+    
 }

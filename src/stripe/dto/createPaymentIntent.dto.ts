@@ -1,4 +1,4 @@
-import { IsNumber, IsObject, IsString } from "class-validator";
+import { IsNumber, IsObject, IsOptional, IsString } from "class-validator";
 
 export class CreatePaymentIntent{
 
@@ -10,4 +10,8 @@ export class CreatePaymentIntent{
 
     @IsString({each: true})
     payment_method_types: string[];
+
+    @IsString()
+    @IsOptional()
+    transferGroup: string;
 }

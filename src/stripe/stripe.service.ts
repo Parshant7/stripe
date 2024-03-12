@@ -20,6 +20,7 @@ import { UpdateSubscriptionDto } from './dto/updateSubscription.dto';
 import { CancelSubscriptionDto } from './dto/cancelSubscription.dto';
 import { ResumeSubscriptionDto } from './dto/resumeSubscription.dto';
 import { CreatePayoutDto } from './dto/createPayout.dto';
+import { CreateTransferDto } from './dto/createTransfer.dto';
 
 @Injectable()
 export class StripeService {
@@ -82,92 +83,108 @@ export class StripeService {
     });
   }
 
-
   async listCard(body: ListBankAccountDto) {
     return await this.stripe.customers.listSources(body.customerId);
   }
 
   async setDefaultCard(body: SetDefaultSourceDto) {
-    return await this.stripe.customers.update(body.customerId,
-    {
-       default_source: body.sourceToken 
+    return await this.stripe.customers.update(body.customerId, {
+      default_source: body.sourceToken,
     });
   }
 
   async deleteCard(body: SetDefaultSourceDto) {
-    return await this.stripe.customers.deleteSource( body.customerId, body.sourceToken );
+    return await this.stripe.customers.deleteSource(
+      body.customerId,
+      body.sourceToken,
+    );
   }
 
-  async createPaymentIntent(body: CreatePaymentIntent){
-    return await this.stripe.paymentIntents.create({
+  async createPaymentIntent(body: CreatePaymentIntent) {
+    if (body.transferGroup) {
+      return await this.stripe.paymentIntents.create({
         amount: body.amount,
         currency: body.currency,
-        payment_method_types: body.payment_method_types
-    })
+        payment_method_types: body.payment_method_types,
+        transfer_group: body.transferGroup,
+      });
+    }
+    return await this.stripe.paymentIntents.create({
+      amount: body.amount,
+      currency: body.currency,
+      payment_method_types: body.payment_method_types,
+    });
   }
 
-  async createRefund(body: CreateRefundDto){
+  async createRefund(body: CreateRefundDto) {
     return await this.stripe.refunds.create({
-      charge: body.chargeId
+      charge: body.chargeId,
     });
   }
 
-  async createProduct(body: CreateProductDto){
+  async createProduct(body: CreateProductDto) {
     return await this.stripe.products.create({
-      name: body.name
+      name: body.name,
     });
   }
 
-  async createPlan(body: CreatePlanDto){
+  async createPlan(body: CreatePlanDto) {
     return await this.stripe.plans.create({
       amount: body.amount,
       currency: body.currency,
       interval: body.interval,
-      product: body.product
+      product: body.product,
     });
   }
 
-  async updatePlan(body: UpdatePlanDto){
-    return await this.stripe.plans.update( body.planId,{ ...body.updates});
+  async updatePlan(body: UpdatePlanDto) {
+    return await this.stripe.plans.update(body.planId, { ...body.updates });
   }
 
-  async deletePlan(body: DeletePlanDto){
-    return await this.stripe.plans.del( body.planId);
+  async deletePlan(body: DeletePlanDto) {
+    return await this.stripe.plans.del(body.planId);
   }
 
-  async listPlans(){
+  async listPlans() {
     return await this.stripe.plans.list();
   }
 
-  async createSubscription(body: CreateSubscriptionDto){
+  async createSubscription(body: CreateSubscriptionDto) {
     return await this.stripe.subscriptions.create({
       customer: body.customerId,
-      items: body.items
+      items: body.items,
     });
   }
 
-  async updateSubscription(body: UpdateSubscriptionDto){
-    return await this.stripe.subscriptions.update(
-      body.subId, ...body.updates
-    );
+  async updateSubscription(body: UpdateSubscriptionDto) {
+    return await this.stripe.subscriptions.update(body.subId, ...body.updates);
   }
 
-  async listSubscriptions(body: any){
+  async listSubscriptions(body: any) {
     return await this.stripe.subscriptions.list(body);
   }
 
-  async cancelSubscriptions(body: CancelSubscriptionDto){
+  async cancelSubscriptions(body: CancelSubscriptionDto) {
     return await this.stripe.subscriptions.cancel(body.subId);
   }
 
-  async resumeSubscription(body: ResumeSubscriptionDto){
+  async resumeSubscription(body: ResumeSubscriptionDto) {
     return await this.stripe.subscriptions.resume(body.subId);
   }
 
-  async createPayout(body: CreatePayoutDto){
+  async createPayout(body: CreatePayoutDto) {
     return await this.stripe.payouts.create({
       amount: body.amount,
-      currency: body.currency
+      currency: body.currency,
+    });
+  }
+
+  async createTransfer(body: CreateTransferDto) {
+    return await this.stripe.transfers.create({
+      amount: body.amount,
+      currency: body.currency,
+      destination: body.destination,
+      transfer_group: body.transferGroup,
     });
   }
 }

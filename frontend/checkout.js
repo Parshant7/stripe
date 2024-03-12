@@ -21,7 +21,7 @@ async function initialize() {
 //     body: JSON.stringify({ items }),
 //   });
 //   const { clientSecret } = await response.json();
-  const clientSecret = "pi_3OhqmHJRSGz7Cmpb2E96Dn59_secret_7Hbu8moQad4pi8UZbAFZ4Ln7g";
+  const clientSecret = "pi_3OtTyuJRSGz7Cmpb0S3xqsAS_secret_JoyobS36rBy8HGDy1hJMRhU3n";
 
   const appearance = {
     theme: 'stripe',
@@ -72,7 +72,7 @@ async function checkStatus() {
 //   if (!clientSecret) {
 //     return;
 //   }
-  const clientSecret = "pi_3OhqmHJRSGz7Cmpb2E96Dn59_secret_7Hbu8moQad4pi8UZbAFZ4Ln7g";
+  const clientSecret = "pi_3OtTyuJRSGz7Cmpb0S3xqsAS_secret_JoyobS36rBy8HGDy1hJMRhU3n";
   const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
 
   switch (paymentIntent.status) {
@@ -110,7 +110,7 @@ function setLoading(isLoading) {
   if (isLoading) {
     // Disable the button and show a spinner
     document.querySelector("#submit").disabled = true;
-    document.querySelector("#spinner").claretrievePaymentIntentssList.remove("hidden");
+    // document.querySelector("#spinner").claretrievePaymentIntentssList.remove("hidden");
     document.querySelector("#button-text").classList.add("hidden");
   } else {
     document.querySelector("#submit").disabled = false;

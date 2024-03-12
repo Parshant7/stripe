@@ -1,0 +1,71 @@
+pi_3OtShLJRSGz7Cmpb1H0IQeyG paymentIntent from parshant sp 210 first_group  
+acct_1OhqemJRSGz7Cmpb parshantkhichi@gmail.com  100
+acct_1OtTKLFFFwl3FMh7 khichiparshant1@gmail.com     50
+
+
+acct_1OtTYcR6Wtcb26wy
+
+//--------------------------------------------------------------------------------------------------------------------------------
+acct_1OtTZ1R7dBopK847   Parshant Vender
+https://connect.stripe.com/d/setup/e/_PivPJWjw77OMlVCGj8EBX6mglq/YWNjdF8xT3RUWjFSN2RCb3BLODQ3/c512afd68b7aa286e
+
+100 usd  150
+ 
+{
+    "id": "tr_1OtTe6JRSGz7CmpbqyMcLl71",
+    "object": "transfer",
+    "amount": 100,
+    "amount_reversed": 0,
+    "balance_transaction": "txn_1OtTe6JRSGz7Cmpb3pBCZtm1",
+    "created": 1710243446,
+    "currency": "usd",
+    "description": null,
+    "destination": "acct_1OtTZ1R7dBopK847",
+    "destination_payment": "py_1OtTe6R7dBopK847CvQpgPLo",
+    "livemode": false,
+    "metadata": {},
+    "reversals": {
+        "object": "list",
+        "data": [],
+        "has_more": false,
+        "total_count": 0,
+        "url": "/v1/transfers/tr_1OtTe6JRSGz7CmpbqyMcLl71/reversals"
+    },
+    "reversed": false,
+    "source_transaction": null,
+    "source_type": "card",
+    "transfer_group": "first_group"
+}
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+acct_1OtTfFQuEhVmMGxc   parshant supplier
+https://connect.stripe.com/d/setup/e/_PivWJSTvHAnkpYAQbwoqmqH1zk/YWNjdF8xT3RUZkZRdUVoVm1NR3hj/30a9a9bea6c8e88a3 
+
+50 usd
+
+{
+    "id": "tr_1OtTiAJRSGz7CmpbDPZKheZp",
+    "object": "transfer",
+    "amount": 50,
+    "amount_reversed": 0,
+    "balance_transaction": "txn_1OtTiBJRSGz7CmpbUB4o1895",
+    "created": 1710243698,
+    "currency": "usd",
+    "description": null,
+    "destination": "acct_1OtTfFQuEhVmMGxc",
+    "destination_payment": "py_1OtTiAQuEhVmMGxcbMBLPu8o",
+    "livemode": false,
+    "metadata": {},
+    "reversals": {
+        "object": "list",
+        "data": [],
+        "has_more": false,
+        "total_count": 0,
+        "url": "/v1/transfers/tr_1OtTiAJRSGz7CmpbDPZKheZp/reversals"
+    },
+    "reversed": false,
+    "source_transaction": null,
+    "source_type": "card",
+    "transfer_group": "first_group"
+}
