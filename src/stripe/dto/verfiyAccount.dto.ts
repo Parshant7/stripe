@@ -1,6 +1,6 @@
 import { IsString } from "class-validator";
 
-export class CheckAccountStatusDto{
+export class VerfiyAccountDto{
 
     @IsString()
     bankId: string;

@@ -69,3 +69,35 @@ https://connect.stripe.com/d/setup/e/_PivWJSTvHAnkpYAQbwoqmqH1zk/YWNjdF8xT3RUZkZ
     "source_type": "card",
     "transfer_group": "first_group"
 }
+
+
+
+
+//--------------------------------------------------------------------------------------------------------------------------------
+
+first customers are created with email and name, gives customer id
+token is created, 
+bank account is created using token and customer id
+can create card using customer id and token like 'tok_visa'
+cards and bank accounts are created from the same api
+
+create a payment intent with the amount 
+confirm the payment intent with that paymentIntentId and paymentMethod like 'pm-card-visa'
+you can use `confirm: true` which is equivalent to creating and confirming the paymentIntent at the same time
+retrieve the payment intent with that paymentIntentId and get the chargeid
+use this charge id to make refund.
+
+create product->plan->subscription
+
+
+various ways to add card/account
+
+1. stripe.paymentMethods.create()  payment method (card) --> attach this payment method to customer using stripe.paymentMethods.attach(paymentmethod_id, {customer: customerId})
+
+
+2. create token using stripe.tokens.create({
+    card/bank_account: ....
+})
+   stripe.customers.createSource(customerId, {source: token});
+
+

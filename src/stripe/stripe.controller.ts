@@ -5,7 +5,7 @@ import { GetTokenDto } from './dto/getToken.dto';
 import { CreateBankAccountDto } from './dto/createBankAccount.dto';
 import { UpdateBankAccountDto } from './dto/updateBankAccount.dto';
 import { ListBankAccountDto } from './dto/listBankAccount.dto';
-import { CheckAccountStatusDto } from './dto/checkBankAccount.dto';
+import { VerfiyAccountDto } from './dto/verfiyAccount.dto';
 import { CreateCardDto } from './dto/createCard.dto';
 import { SetDefaultSourceDto } from './dto/setDefaultSource.dto';
 import { CreatePaymentIntent } from './dto/createPaymentIntent.dto';
@@ -20,6 +20,10 @@ import { CancelSubscriptionDto } from './dto/cancelSubscription.dto';
 import { ResumeSubscriptionDto } from './dto/resumeSubscription.dto';
 import { CreatePayoutDto } from './dto/createPayout.dto';
 import { CreateTransferDto } from './dto/createTransfer.dto';
+import { RetrievePaymentIntent } from './dto/retrievePaymentIntent.dto';
+import { ConfirmPaymentIntentDto } from './dto/confirmPaymentIntent.dto';
+import { CreateAccountDto } from './dto/createAccount.dto';
+import { CreateAccountlinkDto } from './dto/createAccountLink.dto';
 
 @Controller('stripe')
 export class StripeController {
@@ -55,8 +59,8 @@ export class StripeController {
         return this.stripeService.listBankAccounts(body);
     }
 
-    @Get("/check-account-status")
-    async accountStatus(@Body() body: CheckAccountStatusDto){
+    @Get("/verify-bank-account")
+    async accountStatus(@Body() body: VerfiyAccountDto){
         return this.stripeService.accountStatus(body);
     }
 
@@ -88,6 +92,17 @@ export class StripeController {
     @Post("/create-payment-intent")
     async createPaymentIntent(@Body() body: CreatePaymentIntent){
         return this.stripeService.createPaymentIntent(body);
+    }
+
+
+    @Post("/confirm-payment-intent")
+    async confirmPaymentIntent(@Body() body: ConfirmPaymentIntentDto){
+        return this.stripeService.confirmPaymentIntent(body);
+    }
+
+    @Get("/retrieve-payment-intent")
+    async retrievePaymentIntent(@Body() body: RetrievePaymentIntent){
+        return this.stripeService.retrievePaymentIntent(body);
     }
 
     @Post("/create-refund")
@@ -148,6 +163,22 @@ export class StripeController {
     @Post("/create-payout")
     async createPayout(@Body() body: CreatePayoutDto){
         return this.stripeService.createPayout(body);
+    }
+
+    @Post("/create-account")
+    async createAccount(@Body() body: CreateAccountDto){
+        return this.stripeService.createAccount(body);
+    }
+
+    @Get("/list-accounts")
+    async listAccounts(){
+        return this.stripeService.getAccounts();
+    }
+
+
+    @Post("/create-accountlink")
+    async createAccountLink(@Body() body: CreateAccountlinkDto){
+        return this.stripeService.createAccountLink(body);
     }
 
     @Post("/create-transfer")

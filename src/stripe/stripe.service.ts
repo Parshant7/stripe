@@ -6,7 +6,7 @@ import { CreateBankAccountDto } from './dto/createBankAccount.dto';
 import { UpdateBankAccountDto } from './dto/updateBankAccount.dto';
 import { RetrieveAllBankAccountDto } from './dto/retrieveAllBankAccount.dto';
 import { ListBankAccountDto } from './dto/listBankAccount.dto';
-import { CheckAccountStatusDto } from './dto/checkBankAccount.dto';
+import { VerfiyAccountDto } from './dto/verfiyAccount.dto';
 import { CreateCardDto } from './dto/createCard.dto';
 import { SetDefaultSourceDto } from './dto/setDefaultSource.dto';
 import { CreatePaymentIntent } from './dto/createPaymentIntent.dto';
@@ -21,6 +21,10 @@ import { CancelSubscriptionDto } from './dto/cancelSubscription.dto';
 import { ResumeSubscriptionDto } from './dto/resumeSubscription.dto';
 import { CreatePayoutDto } from './dto/createPayout.dto';
 import { CreateTransferDto } from './dto/createTransfer.dto';
+import { RetrievePaymentIntent } from './dto/retrievePaymentIntent.dto';
+import { ConfirmPaymentIntentDto } from './dto/confirmPaymentIntent.dto';
+import { CreateAccountDto } from './dto/createAccount.dto';
+import { CreateAccountlinkDto } from './dto/createAccountLink.dto';
 
 @Injectable()
 export class StripeService {
@@ -61,12 +65,12 @@ export class StripeService {
     return await this.stripe.customers.listSources(body.customerId);
   }
 
-  async accountStatus(body: CheckAccountStatusDto) {
+  async accountStatus(body: VerfiyAccountDto) {
     return await this.stripe.customers.verifySource(
       body.customerId,
       body.bankId,
       {
-        amounts: [23, 32],
+        amounts: [32, 45],
       },
     );
   }
@@ -114,6 +118,17 @@ export class StripeService {
       currency: body.currency,
       payment_method_types: body.payment_method_types,
     });
+  }
+
+
+  async confirmPaymentIntent(body: ConfirmPaymentIntentDto){
+    return await this.stripe.paymentIntents.confirm(body.intentId,{
+      payment_method: body.paymentMethod
+    });
+  }
+
+  async retrievePaymentIntent(body: RetrievePaymentIntent){
+    return await this.stripe.paymentIntents.retrieve(body.intentId);
   }
 
   async createRefund(body: CreateRefundDto) {
@@ -179,6 +194,30 @@ export class StripeService {
     });
   }
 
+  async createAccount(body:CreateAccountDto){
+    return await this.stripe.accounts.create({
+      type: body.type,
+      country: body.country,
+      capabilities: body.capabilities,
+      business_type: body.business_type,
+      business_profile: body.business_profile
+    });
+  };
+
+  async getAccounts(){
+    return await this.stripe.accounts.list();
+  }
+
+  async createAccountLink(body: CreateAccountlinkDto){
+    return await this.stripe.accountLinks.create({
+      account: body.account,
+      refresh_url: body.refresh_url,
+      return_url: body.return_url,
+      type: body.type
+    });
+  }
+
+  //to split payments
   async createTransfer(body: CreateTransferDto) {
     return await this.stripe.transfers.create({
       amount: body.amount,

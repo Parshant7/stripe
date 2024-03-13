@@ -21,7 +21,7 @@ async function initialize() {
 //     body: JSON.stringify({ items }),
 //   });
 //   const { clientSecret } = await response.json();
-  const clientSecret = "pi_3OtTyuJRSGz7Cmpb0S3xqsAS_secret_JoyobS36rBy8HGDy1hJMRhU3n";
+  const clientSecret = "pi_3OtjYUJRSGz7Cmpb2mt2YBNr_secret_kRjjZchTtb5FCGkUlIVeFX25A";
 
   const appearance = {
     theme: 'stripe',
@@ -72,7 +72,7 @@ async function checkStatus() {
 //   if (!clientSecret) {
 //     return;
 //   }
-  const clientSecret = "pi_3OtTyuJRSGz7Cmpb0S3xqsAS_secret_JoyobS36rBy8HGDy1hJMRhU3n";
+  const clientSecret = "pi_3OtjYUJRSGz7Cmpb2mt2YBNr_secret_kRjjZchTtb5FCGkUlIVeFX25A";
   const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
 
   switch (paymentIntent.status) {
